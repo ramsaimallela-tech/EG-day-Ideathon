@@ -1,56 +1,663 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Operations dashboard for monitoring banking systems, transactions, and risk.">
-  <title>Northstar Bank | Operations</title>
+  <meta name="description"
+    content="Industrial Mine Safety & Rescue Operations Command Center - High-contrast, intuitive telemetry, rover control, and underground worker safety dashboard.">
+  <title>MINE SAFETY & RESCUE COMMAND CONSOLE</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <div class="app-shell">
-    <aside class="sidebar">
-      <a class="brand" href="#"><span class="brand-mark">N</span><span>northstar<span class="brand-dot">.</span></span></a>
-      <div class="side-label">Workspace</div>
-      <nav class="nav-list" aria-label="Primary navigation">
-        <a class="nav-item active" href="#"><span class="nav-icon">▦</span>Overview</a>
-        <a class="nav-item" href="#transactions"><span class="nav-icon">↔</span>Transactions <span class="nav-count">12</span></a>
-        <a class="nav-item" href="#accounts"><span class="nav-icon">▤</span>Accounts</a>
-        <a class="nav-item" href="#risk"><span class="nav-icon">◈</span>Risk &amp; compliance</a>
-        <a class="nav-item" href="#reports"><span class="nav-icon">▥</span>Reports</a>
-      </nav>
-      <div class="side-label">System</div>
-      <nav class="nav-list">
-        <a class="nav-item" href="#"><span class="nav-icon">⚙</span>Settings</a>
-        <a class="nav-item" href="#"><span class="nav-icon">?</span>Support</a>
-      </nav>
-      <div class="sidebar-footer"><span class="status-dot"></span><span><strong>All systems operational</strong><small>Last checked just now</small></span></div>
-    </aside>
 
-    <main class="main-content">
-      <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> Overview</div><div class="top-actions"><button class="icon-button" aria-label="Notifications">♧<span class="notification-dot"></span></button><div class="profile"><span class="avatar">AM</span><span><strong>Alex Morgan</strong><small>Administrator</small></span><span class="chevron">⌄</span></div></div></header>
-      <section class="page-heading"><div><p class="eyebrow">Wednesday, September 2, 2026</p><h1>Good morning, Alex</h1><p class="subheading">Here is what is happening across your banking operations today.</p></div><div class="heading-actions"><button class="button secondary">Download report <span>↓</span></button><button class="button primary">+ New transfer</button></div></section>
+  <!-- TOP HEADER BAR -->
+  <header class="cmd-header">
+    <div class="header-left">
+      <div class="safety-badge">
+        <span class="status-indicator live-pulse"></span>
+        <span class="badge-text">SYS LIVE</span>
+      </div>
+      <div class="facility-info">
+        <h1 class="main-heading">MINE SAFETY &amp; RESCUE OPERATIONS</h1>
+        <span class="sub-heading">SECTOR 7 • UNDERGROUND DEEP DRIFT CONSOLE</span>
+      </div>
+    </div>
 
-      <section class="metric-grid" aria-label="Key metrics">
-        <article class="metric-card"><div class="metric-top"><span>Total balance</span><span class="metric-icon green">$</span></div><strong class="metric-value">$2,846,920.18</strong><div class="metric-change positive">↑ 8.24% <span>vs last month</span></div></article>
-        <article class="metric-card"><div class="metric-top"><span>Transactions</span><span class="metric-icon blue">↔</span></div><strong class="metric-value">18,492</strong><div class="metric-change positive">↑ 12.8% <span>vs last month</span></div></article>
-        <article class="metric-card"><div class="metric-top"><span>Pending review</span><span class="metric-icon amber">!</span></div><strong class="metric-value">24</strong><div class="metric-change neutral">Needs attention <span>across 6 accounts</span></div></article>
-        <article class="metric-card"><div class="metric-top"><span>Fraud prevented</span><span class="metric-icon red">✓</span></div><strong class="metric-value">$42,680</strong><div class="metric-change positive">↑ 4.6% <span>this month</span></div></article>
-      </section>
+    <!-- Live Mission Clock & Status Ribbon -->
+    <div class="header-center">
+      <div class="status-pill status-normal" id="overallStatusPill">
+        <span class="status-icon" id="overallStatusIcon">✔</span>
+        <span id="overallStatusText">ALL ZONES SAFE</span>
+      </div>
+      <div class="telemetry-stat">
+        <span class="stat-lbl">PERSONNEL</span>
+        <span class="stat-val" id="personnelSummary">18 / 18 SAFE</span>
+      </div>
+      <div class="telemetry-stat">
+        <span class="stat-lbl">ROVER LINK</span>
+        <span class="stat-val green-text" id="telemetryLinkVal">99.4% RSSI</span>
+      </div>
+      <div class="telemetry-stat">
+        <span class="stat-lbl">MISSION TIME</span>
+        <span class="stat-val" id="missionClock">00:00:00</span>
+      </div>
+    </div>
 
-      <section class="content-grid">
-        <article class="panel activity-panel" id="transactions"><div class="panel-header"><div><h2>Transaction activity</h2><p>Cash flow across all accounts</p></div><select aria-label="Transaction period"><option>Last 30 days</option><option>Last 90 days</option></select></div><div class="chart-wrap"><div class="chart-y-axis"><span>$300k</span><span>$200k</span><span>$100k</span><span>$0</span></div><div class="chart"><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div><svg viewBox="0 0 700 230" preserveAspectRatio="none" aria-label="Transaction activity chart"><path class="chart-area" d="M0,190 C55,160 70,180 110,145 S170,125 210,148 S260,100 300,118 S360,80 400,110 S460,135 500,95 S550,120 590,70 S650,90 700,45 L700,230 L0,230 Z"></path><path class="chart-line" d="M0,190 C55,160 70,180 110,145 S170,125 210,148 S260,100 300,118 S360,80 400,110 S460,135 500,95 S550,120 590,70 S650,90 700,45"></path></svg><div class="chart-labels"><span>Aug 04</span><span>Aug 11</span><span>Aug 18</span><span>Aug 25</span><span>Sep 02</span></div></div></div><div class="chart-legend"><span><i class="legend-dot income"></i>Income <strong>$846,920</strong></span><span><i class="legend-dot expense"></i>Expenses <strong>$392,480</strong></span></div></article>
-        <article class="panel account-panel" id="accounts"><div class="panel-header"><div><h2>Account overview</h2><p>Balances by account</p></div><button class="text-button">View all →</button></div><div class="account-list"><div class="account-row"><span class="account-symbol checking">C</span><span class="account-name"><strong>Operating account</strong><small>•••• 4821</small></span><strong>$1,284,920.18</strong></div><div class="account-row"><span class="account-symbol savings">S</span><span class="account-name"><strong>Reserve savings</strong><small>•••• 9136</small></span><strong>$962,000.00</strong></div><div class="account-row"><span class="account-symbol credit">V</span><span class="account-name"><strong>Corporate card</strong><small>•••• 2280</small></span><strong>$600,000.00</strong></div></div><div class="account-total"><span>Total across accounts</span><strong>$2,846,920.18</strong></div></article>
-      </section>
+    <!-- Quick Scenario Presets for Easy Demonstrations -->
+    <div class="header-right">
+      <div class="demo-controller">
+        <span class="demo-lbl">SIMULATION PRESETS:</span>
+        <div class="demo-btns">
+          <button class="btn-preset active" id="presetNormal" title="Simulate standard safe conditions">Normal</button>
+          <button class="btn-preset" id="presetGas" title="Simulate elevated methane & toxic gas alert">Gas
+            Alert</button>
+          <button class="btn-preset" id="presetObstacle" title="Simulate tunnel collapse / obstacle">Obstacle</button>
+          <button class="btn-preset" id="presetSos" title="Simulate miner distress signal">Miner SOS</button>
+        </div>
+      </div>
+      <button class="icon-toggle" id="btnAudioToggle" title="Toggle audio feedback" aria-label="Toggle Audio">
+        <span id="audioIcon">🔊</span>
+      </button>
+    </div>
+  </header>
 
-      <section class="lower-grid">
-        <article class="panel table-panel"><div class="panel-header"><div><h2>Recent transactions</h2><p>Latest account activity</p></div><button class="text-button">View all →</button></div><div class="table-scroll"><table><thead><tr><th>Transaction</th><th>Category</th><th>Date</th><th>Status</th><th class="amount">Amount</th></tr></thead><tbody><tr><td><span class="transaction-icon incoming">↓</span><span><strong>Atlas Cloud Services</strong><small>Incoming transfer</small></span></td><td>Services</td><td>Today, 09:42</td><td><span class="pill success">Completed</span></td><td class="amount positive-amount">+$24,500.00</td></tr><tr><td><span class="transaction-icon outgoing">↑</span><span><strong>Harbor Logistics Ltd.</strong><small>Outgoing transfer</small></span></td><td>Operations</td><td>Today, 08:16</td><td><span class="pill success">Completed</span></td><td class="amount">-$8,240.00</td></tr><tr><td><span class="transaction-icon pending">◷</span><span><strong>Brightline Payroll</strong><small>Scheduled payment</small></span></td><td>Payroll</td><td>Yesterday, 16:30</td><td><span class="pill pending-pill">Pending</span></td><td class="amount">-$42,800.00</td></tr></tbody></table></div></article>
-        <article class="panel security-panel" id="risk"><div class="panel-header"><div><h2>Security center</h2><p>Live operational status</p></div><span class="secure-badge">● Secure</span></div><div class="security-score"><div class="score-ring"><strong>98</strong><small>/100</small></div><div><strong>Excellent standing</strong><p>Your accounts are protected and up to date.</p></div></div><div class="security-item"><span class="security-check">✓</span><span><strong>Identity verification</strong><small>Last checked today</small></span><span class="item-status">Verified</span></div><div class="security-item"><span class="security-check">✓</span><span><strong>Fraud monitoring</strong><small>Monitoring 24 accounts</small></span><span class="item-status">Active</span></div></article>
-      </section>
-      <footer class="page-footer"><span>Northstar Bank Operations</span><span>Data refreshes automatically <span class="refresh-dot"></span></span></footer>
-    </main>
-  </div>
+  <!-- MAIN DASHBOARD CONTENT GRID -->
+  <main class="dashboard-grid">
+
+    <!-- LEFT COLUMN: ATMOSPHERIC & ENVIRONMENTAL TELEMETRY (14 SENSORS) -->
+    <section class="panel panel-telemetry" aria-labelledby="telemetry-heading">
+      <div class="panel-header">
+        <h2 id="telemetry-heading" class="panel-title">
+          <span class="panel-icon">⚡</span> ATMOSPHERIC &amp; SENSOR TELEMETRY
+        </h2>
+        <span class="badge-count">14 SENSORS ACTIVE</span>
+      </div>
+
+      <div class="sensors-container">
+
+        <!-- Group 1: Hazardous Gases & Air Quality -->
+        <div class="sensor-group">
+          <div class="group-title">GAS &amp; ATMOSPHERE</div>
+
+          <div class="sensor-card" id="card-ch4">
+            <div class="sensor-meta">
+              <span class="sensor-name">CH₄ Methane</span>
+              <span class="sensor-state state-ok" id="status-ch4">NORMAL</span>
+            </div>
+            <div class="sensor-reading">
+              <span class="sensor-value" id="val-ch4">0.32</span>
+              <span class="sensor-unit">% LEL</span>
+            </div>
+            <div class="sensor-meter-bar">
+              <div class="sensor-meter-fill" id="meter-ch4" style="width: 15%;"></div>
+            </div>
+            <div class="sensor-threshold">Safe Limit: &lt; 1.00 %</div>
+          </div>
+
+          <div class="sensor-card" id="card-co">
+            <div class="sensor-meta">
+              <span class="sensor-name">CO Carbon Monoxide</span>
+              <span class="sensor-state state-ok" id="status-co">NORMAL</span>
+            </div>
+            <div class="sensor-reading">
+              <span class="sensor-value" id="val-co">12</span>
+              <span class="sensor-unit">ppm</span>
+            </div>
+            <div class="sensor-meter-bar">
+              <div class="sensor-meter-fill" id="meter-co" style="width: 24%;"></div>
+            </div>
+            <div class="sensor-threshold">Threshold: &lt; 50 ppm</div>
+          </div>
+
+          <div class="sensor-card" id="card-aqi">
+            <div class="sensor-meta">
+              <span class="sensor-name">Air Quality (AQI)</span>
+              <span class="sensor-state state-ok" id="status-aqi">GOOD</span>
+            </div>
+            <div class="sensor-reading">
+              <span class="sensor-value" id="val-aqi">38</span>
+              <span class="sensor-unit">AQI</span>
+            </div>
+            <div class="sensor-meter-bar">
+              <div class="sensor-meter-fill" id="meter-aqi" style="width: 19%;"></div>
+            </div>
+            <div class="sensor-threshold">Scale: 0-500 (Good &lt; 50)</div>
+          </div>
+
+          <div class="sensor-card" id="card-barometer">
+            <div class="sensor-meta">
+              <span class="sensor-name">Barometric Pressure</span>
+              <span class="sensor-state state-ok" id="status-barometer">STABLE</span>
+            </div>
+            <div class="sensor-reading">
+              <span class="sensor-value" id="val-barometer">1013</span>
+              <span class="sensor-unit">hPa</span>
+            </div>
+            <div class="sensor-meter-bar">
+              <div class="sensor-meter-fill" id="meter-barometer" style="width: 50%;"></div>
+            </div>
+            <div class="sensor-threshold">Nominal: 990 - 1030 hPa</div>
+          </div>
+        </div>
+
+        <!-- Group 2: Thermal & Environmental -->
+        <div class="sensor-group">
+          <div class="group-title">TEMPERATURE &amp; SEISMIC</div>
+
+          <div class="sensor-card" id="card-temp">
+            <div class="sensor-meta">
+              <span class="sensor-name">Ambient Temperature</span>
+              <span class="sensor-state state-ok" id="status-temp">NORMAL</span>
+            </div>
+            <div class="sensor-reading">
+              <span class="sensor-value" id="val-temperature">26.8</span>
+              <span class="sensor-unit">°C</span>
+            </div>
+            <div class="sensor-meter-bar">
+              <div class="sensor-meter-fill" id="meter-temp" style="width: 38%;"></div>
+            </div>
+            <div class="sensor-threshold">Safe: 15°C - 38°C</div>
+          </div>
+
+          <div class="sensor-card" id="card-ir">
+            <div class="sensor-meta">
+              <span class="sensor-name">IR Surface Thermal</span>
+              <span class="sensor-state state-ok" id="status-ir">NORMAL</span>
+            </div>
+            <div class="sensor-reading">
+              <span class="sensor-value" id="val-ir">29.4</span>
+              <span class="sensor-unit">°C</span>
+            </div>
+            <div class="sensor-meter-bar">
+              <div class="sensor-meter-fill" id="meter-ir" style="width: 32%;"></div>
+            </div>
+            <div class="sensor-threshold">Hotspot alert: &gt; 55°C</div>
+          </div>
+
+          <div class="sensor-card" id="card-humidity">
+            <div class="sensor-meta">
+              <span class="sensor-name">Relative Humidity</span>
+              <span class="sensor-state state-ok" id="status-humidity">NORMAL</span>
+            </div>
+            <div class="sensor-reading">
+              <span class="sensor-value" id="val-humidity">58</span>
+              <span class="sensor-unit">% RH</span>
+            </div>
+            <div class="sensor-meter-bar">
+              <div class="sensor-meter-fill" id="meter-humidity" style="width: 58%;"></div>
+            </div>
+            <div class="sensor-threshold">Ideal Range: 40% - 75%</div>
+          </div>
+
+          <div class="sensor-card" id="card-vibration">
+            <div class="sensor-meta">
+              <span class="sensor-name">Seismic / Vibration</span>
+              <span class="sensor-state state-ok" id="status-vibration">QUIET</span>
+            </div>
+            <div class="sensor-reading">
+              <span class="sensor-value" id="val-vibration">1.8</span>
+              <span class="sensor-unit">mm/s</span>
+            </div>
+            <div class="sensor-meter-bar">
+              <div class="sensor-meter-fill" id="meter-vibration" style="width: 12%;"></div>
+            </div>
+            <div class="sensor-threshold">Cave-in risk: &gt; 8.0 mm/s</div>
+          </div>
+        </div>
+
+        <!-- Group 3: Position, Obstacle & Navigation -->
+        <div class="sensor-group">
+          <div class="group-title">ROVER LOCATION &amp; KINEMATICS</div>
+
+          <div class="sensor-card" id="card-gps">
+            <div class="sensor-meta">
+              <span class="sensor-name">Position &amp; Depth</span>
+              <span class="sensor-state state-ok" id="status-gps">LOCKED</span>
+            </div>
+            <div class="sensor-multi-reading">
+              <div class="multi-item">
+                <span class="lbl">Depth:</span>
+                <strong id="val-gps-depth">-340 m</strong>
+              </div>
+              <div class="multi-item">
+                <span class="lbl">GPS:</span>
+                <span id="val-gps-coords">12.9716, 78.1689</span>
+              </div>
+              <div class="multi-item">
+                <span class="lbl">Zone:</span>
+                <span id="val-location-zone">Tunnel B3 (West)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sensor-card" id="card-proximity">
+            <div class="sensor-meta">
+              <span class="sensor-name">Proximity Sensor</span>
+              <span class="sensor-state state-ok" id="status-proximity">CLEAR</span>
+            </div>
+            <div class="sensor-reading">
+              <span class="sensor-value" id="val-proximity">165</span>
+              <span class="sensor-unit">cm</span>
+            </div>
+            <div class="sensor-meter-bar">
+              <div class="sensor-meter-fill" id="meter-proximity" style="width: 82%;"></div>
+            </div>
+            <div class="sensor-threshold">Obstacle warning: &lt; 40 cm</div>
+          </div>
+
+          <div class="sensor-card" id="card-ultrasonic">
+            <div class="sensor-meta">
+              <span class="sensor-name">Ultrasonic Range</span>
+              <span class="sensor-state state-ok" id="status-ultrasonic">CLEAR</span>
+            </div>
+            <div class="sensor-reading">
+              <span class="sensor-value" id="val-ultrasonic">248</span>
+              <span class="sensor-unit">cm</span>
+            </div>
+            <div class="sensor-meter-bar">
+              <div class="sensor-meter-fill" id="meter-ultrasonic" style="width: 75%;"></div>
+            </div>
+            <div class="sensor-threshold">Distance to head wall</div>
+          </div>
+
+          <div class="sensor-card" id="card-motion">
+            <div class="sensor-meta">
+              <span class="sensor-name">Motion Detection</span>
+              <span class="sensor-state state-ok" id="status-motion">NONE</span>
+            </div>
+            <div class="sensor-reading">
+              <span class="sensor-value" id="val-motion">NO MOTION</span>
+            </div>
+            <div class="sensor-threshold">PIR Infra-Red Activity Sensor</div>
+          </div>
+
+          <div class="sensor-card" id="card-tilt">
+            <div class="sensor-meta">
+              <span class="sensor-name">Chassis Attitude (Pitch/Roll)</span>
+              <span class="sensor-state state-ok" id="status-tilt">LEVEL</span>
+            </div>
+            <div class="sensor-multi-reading">
+              <div class="multi-item">
+                <span class="lbl">Tilt:</span>
+                <strong id="val-accel-tilt">P: +1.2° R: -0.8°</strong>
+              </div>
+              <div class="multi-item">
+                <span class="lbl">Load:</span>
+                <strong id="val-accel-g">1.02 g</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="sensor-card" id="card-beacon">
+            <div class="sensor-meta">
+              <span class="sensor-name">Miner Beacon Signal (RSSI)</span>
+              <span class="sensor-state state-ok" id="status-beacon">DETECTED</span>
+            </div>
+            <div class="sensor-reading">
+              <span class="sensor-value" id="val-beacon">-48</span>
+              <span class="sensor-unit">dBm</span>
+            </div>
+            <div class="sensor-meter-bar">
+              <div class="sensor-meter-fill" id="meter-beacon" style="width: 70%;"></div>
+            </div>
+            <div class="sensor-threshold">Emergency beacon locator</div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CENTER COLUMN: DATA GRAPH + WORKER STATUS + MINI CAMERA + ROVER CONTROLS -->
+    <section class="panel panel-center" aria-labelledby="center-heading">
+
+      <!-- TOP ROW: Sensor Graph + Worker Status + Mini Camera -->
+      <div class="recon-block">
+        <div class="panel-header">
+          <h2 id="center-heading" class="panel-title">
+            <span class="panel-icon">📊</span> LIVE SENSOR TRENDS &amp; WORKFORCE STATUS
+          </h2>
+          <div class="graph-selector">
+            <label class="graph-lbl" for="graphMetricSelect">PLOT:</label>
+            <select id="graphMetricSelect" class="graph-select">
+              <option value="ch4">CH₄ Methane (%)</option>
+              <option value="co">CO Carbon (ppm)</option>
+              <option value="temp">Temperature (°C)</option>
+              <option value="aqi">Air Quality (AQI)</option>
+              <option value="vibration">Vibration (mm/s)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- MAIN CONTENT AREA: Graph + Sidebar (Workers + Mini Cam) -->
+        <div class="center-data-row">
+
+          <!-- Live Rolling Sensor Chart -->
+          <div class="chart-panel">
+            <div class="chart-y-labels" id="chartYLabels">
+              <span>1.0</span><span>0.75</span><span>0.5</span><span>0.25</span><span>0.0</span>
+            </div>
+            <div class="chart-area-wrap">
+              <canvas id="sensorGraph" aria-label="Live Sensor Trend Graph"></canvas>
+              <div class="chart-x-labels">
+                <span>-60s</span><span>-45s</span><span>-30s</span><span>-15s</span><span>Now</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Sidebar: Worker Status + Mini Camera -->
+          <div class="center-sidebar">
+
+            <!-- Worker Active / Inactive Status -->
+            <div class="worker-status-box">
+              <div class="ws-header">
+                <span class="ws-title">👷 WORKERS</span>
+                <span class="ws-badge" id="wsOverallBadge">ALL SAFE</span>
+              </div>
+              <div class="ws-counts">
+                <div class="ws-count-item ws-active">
+                  <span class="ws-num" id="wsActiveCount">18</span>
+                  <span class="ws-lbl">ACTIVE</span>
+                </div>
+                <div class="ws-count-item ws-inactive">
+                  <span class="ws-num" id="wsInactiveCount">0</span>
+                  <span class="ws-lbl">INACTIVE</span>
+                </div>
+                <div class="ws-count-item ws-sos">
+                  <span class="ws-num" id="wsSosCount">0</span>
+                  <span class="ws-lbl">SOS</span>
+                </div>
+              </div>
+              <!-- Per-zone worker rows -->
+              <div class="ws-zone-list">
+                <div class="ws-zone-row">
+                  <span class="ws-dot ws-dot-ok"></span>
+                  <span class="ws-zone-name">Shaft Entry</span>
+                  <span class="ws-zone-num" id="wz-shaft">4</span>
+                </div>
+                <div class="ws-zone-row">
+                  <span class="ws-dot ws-dot-ok"></span>
+                  <span class="ws-zone-name">Tunnel B3</span>
+                  <span class="ws-zone-num" id="wz-tunnel">6</span>
+                </div>
+                <div class="ws-zone-row">
+                  <span class="ws-dot ws-dot-ok"></span>
+                  <span class="ws-zone-name">Stope 4</span>
+                  <span class="ws-zone-num" id="wz-stope">5</span>
+                </div>
+                <div class="ws-zone-row">
+                  <span class="ws-dot ws-dot-ok"></span>
+                  <span class="ws-zone-name">Deep Drift</span>
+                  <span class="ws-zone-num" id="wz-deep">3</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mini Camera Window -->
+            <div class="mini-cam-box">
+              <div class="mini-cam-header">
+                <span class="rec-dot"></span>
+                <span class="mini-cam-title">CAM-01 LIVE</span>
+                <div class="cam-modes cam-modes-mini" role="tablist">
+                  <button class="btn-tab active" id="tabOptical" role="tab" title="Optical camera mode">OPT</button>
+                  <button class="btn-tab" id="tabThermal" role="tab" title="Thermal FLIR mode">FLIR</button>
+                  <button class="btn-tab" id="tabNight" role="tab" title="Night vision mode">NV</button>
+                  <button class="btn-tab" id="tabLidar" role="tab" title="LIDAR 3D mode">3D</button>
+                </div>
+              </div>
+              <div class="mini-cam-viewport">
+                <canvas id="cameraCanvas" aria-label="Live Mine Reconnaissance Feed - Mini View"></canvas>
+                <div class="mini-cam-hud">
+                  <span class="mini-hud-tag" id="hudBearing">042°</span>
+                  <span class="mini-hud-tag" id="hudDistance" style="margin-left:auto">2.4m</span>
+                </div>
+                <div class="mini-cam-hud mini-cam-hud-bot">
+                  <span class="mini-hud-tag" id="hudThermalMax">29.4°C</span>
+                  <span class="mini-hud-tag" style="margin-left:auto">-340m</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- end center-sidebar -->
+        </div><!-- end center-data-row -->
+      </div>
+
+      <!-- Rover Operational & Navigation Controls -->
+      <div class="controls-block">
+        <div class="panel-header">
+          <h2 class="panel-title">
+            <span class="panel-icon">🎮</span> RESCUE ROVER TELEOPERATION
+          </h2>
+          <span class="badge-count" id="badgeMode">MODE: MANUAL</span>
+        </div>
+
+        <!-- Operational Command Buttons Row -->
+        <div class="op-button-strip">
+          <button class="btn-op" id="btnMode" title="Toggle Manual Remote or Autonomous Rescue AI">
+            <span class="op-icon">🤖</span>
+            <span class="op-txt">MODE: <strong>MANUAL</strong></span>
+          </button>
+
+          <button class="btn-op" id="btnLights" title="Cycle Floodlights Off, Low, High, Strobe">
+            <span class="op-icon">💡</span>
+            <span class="op-txt">LIGHTS: <strong id="lblLights">OFF</strong></span>
+          </button>
+
+          <button class="btn-op" id="btnAlarm" title="Toggle audible emergency siren & beacon">
+            <span class="op-icon">🚨</span>
+            <span class="op-txt">ALARM: <strong id="lblAlarm">OFF</strong></span>
+          </button>
+
+          <button class="btn-op" id="btnCallback" title="Recall rover autonomously back to base shaft">
+            <span class="op-icon">🏠</span>
+            <span class="op-txt">RETURN: <strong id="lblCallback">BASE</strong></span>
+          </button>
+
+          <button class="btn-op btn-emergency-stop" id="btnEstop"
+            title="Emergency Stop - Immediately halts all propulsion">
+            <span class="op-icon">🛑</span>
+            <span class="op-txt"><strong>EMERGENCY STOP</strong></span>
+          </button>
+        </div>
+
+        <!-- Driving Controls (Direction Pad + Speed Slider) -->
+        <div class="drive-console">
+
+          <!-- Direction Controller Pad -->
+          <div class="dpad-container">
+            <div class="dpad-label">PROPULSION (WASD / ARROWS)</div>
+            <div class="dpad-grid">
+              <div></div>
+              <button class="dpad-btn dpad-fwd" id="btnFwd" aria-label="Drive Forward">
+                ▲<span class="key-hint">W</span>
+              </button>
+              <div></div>
+
+              <button class="dpad-btn dpad-lft" id="btnLft" aria-label="Turn Left">
+                ◀<span class="key-hint">A</span>
+              </button>
+              <button class="dpad-btn dpad-stp active" id="btnStp" aria-label="Brake / Stop">
+                ■<span class="key-hint">SPACE</span>
+              </button>
+              <button class="dpad-btn dpad-rgt" id="btnRgt" aria-label="Turn Right">
+                ▶<span class="key-hint">D</span>
+              </button>
+
+              <div></div>
+              <button class="dpad-btn dpad-rev" id="btnRev" aria-label="Drive Reverse">
+                ▼<span class="key-hint">S</span>
+              </button>
+              <div></div>
+            </div>
+          </div>
+
+          <!-- Speed & Throttle Control -->
+          <div class="throttle-container">
+            <div class="throttle-header">
+              <span class="throttle-title">THROTTLE &amp; VELOCITY</span>
+              <span class="speed-number"><strong id="speedValue">0.0</strong> <small>km/h</small></span>
+            </div>
+
+            <input type="range" class="throttle-slider" id="speedSlider" min="0" max="4.0" step="0.1" value="0"
+              aria-label="Rover Speed">
+
+            <div class="gear-presets">
+              <button class="btn-gear" data-speed="0">STOP</button>
+              <button class="btn-gear" data-speed="1.0">1.0 CRAWL</button>
+              <button class="btn-gear" data-speed="2.2">2.2 PATROL</button>
+              <button class="btn-gear" data-speed="3.5">3.5 RAPID</button>
+            </div>
+
+            <div class="telemetry-sub-bar">
+              <div class="sub-item">
+                <span class="sub-lbl">BATTERY:</span>
+                <span class="sub-val" id="valBattery">88% (4.2 hrs)</span>
+              </div>
+              <div class="sub-item">
+                <span class="sub-lbl">MOTOR TEMP:</span>
+                <span class="sub-val" id="valMotorTemp">34°C (NOMINAL)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- RIGHT COLUMN: SAFETY MANAGEMENT, VENTILATION & INCIDENT AUDIT LOG -->
+    <section class="panel panel-right" aria-labelledby="safety-heading">
+
+      <!-- Personnel Safety & Sector Status -->
+      <div class="safety-sect">
+        <div class="panel-header">
+          <h2 id="safety-heading" class="panel-title">
+            <span class="panel-icon">👷</span> UNDERGROUND WORKERS &amp; ZONES
+          </h2>
+          <span class="badge-count">4 SECTORS</span>
+        </div>
+
+        <div class="zone-list">
+          <div class="zone-row" id="zone-shaft">
+            <div class="zone-info">
+              <strong>Shaft Lift #1 (Entry)</strong>
+              <span>Depth: 0 to -100m</span>
+            </div>
+            <div class="zone-workers">4 Workers</div>
+            <span class="status-tag tag-safe">SAFE</span>
+          </div>
+
+          <div class="zone-row" id="zone-tunnel">
+            <div class="zone-info">
+              <strong>Tunnel B3 (West Drift)</strong>
+              <span>Depth: -340m • Rover Active</span>
+            </div>
+            <div class="zone-workers">6 Workers</div>
+            <span class="status-tag tag-safe" id="tagTunnelStatus">SAFE</span>
+          </div>
+
+          <div class="zone-row" id="zone-stope">
+            <div class="zone-info">
+              <strong>Stope 4 Extraction</strong>
+              <span>Depth: -420m</span>
+            </div>
+            <div class="zone-workers">5 Workers</div>
+            <span class="status-tag tag-safe">SAFE</span>
+          </div>
+
+          <div class="zone-row" id="zone-deep">
+            <div class="zone-info">
+              <strong>Deep Exploration Drift</strong>
+              <span>Depth: -580m</span>
+            </div>
+            <div class="zone-workers">3 Workers</div>
+            <span class="status-tag tag-safe">SAFE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mine Ventilation & Life Support Actuators -->
+      <div class="safety-sect">
+        <div class="panel-header">
+          <h2 class="panel-title">
+            <span class="panel-icon">🌀</span> VENTILATION &amp; LIFE SUPPORT
+          </h2>
+        </div>
+
+        <div class="actuator-grid">
+          <div class="actuator-item">
+            <div class="actuator-meta">
+              <span class="act-name">Main Air Scrubbers</span>
+              <span class="act-val" id="valScrubber">AUTO (100%)</span>
+            </div>
+            <button class="btn-actuator" id="btnScrubberToggle">BOOST PURGE</button>
+          </div>
+
+          <div class="actuator-item">
+            <div class="actuator-meta">
+              <span class="act-name">Methane Exhaust Fans</span>
+              <span class="act-val" id="valFan">RUNNING</span>
+            </div>
+            <button class="btn-actuator" id="btnFanToggle">HIGH FLOW</button>
+          </div>
+
+          <div class="actuator-item">
+            <div class="actuator-meta">
+              <span class="act-name">Emergency Siren &amp; Strobes</span>
+              <span class="act-val" id="valSirenStatus">STANDBY</span>
+            </div>
+            <button class="btn-actuator btn-actuator-warn" id="btnBroadcastEvac">BROADCAST EVAC</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-time Incident & Operational Event Log -->
+      <div class="safety-sect log-section">
+        <div class="panel-header">
+          <h2 class="panel-title">
+            <span class="panel-icon">📋</span> INCIDENT &amp; ACTION AUDIT LOG
+          </h2>
+          <div class="log-actions">
+            <button class="btn-mini" id="btnClearLog" title="Clear log view">Clear</button>
+            <button class="btn-mini" id="btnExportLog" title="Download text audit report">Export</button>
+          </div>
+        </div>
+
+        <div class="log-scroll-area" id="auditLogContainer" role="log" aria-live="polite">
+          <!-- Dynamically populated entries -->
+          <div class="log-entry log-info"><span class="log-t">10:48:02</span> Console initialized. All 14 telemetry
+            channels connected.</div>
+          <div class="log-entry log-info"><span class="log-t">10:48:15</span> Rover teleoperation telemetry locked.
+            Link: 99.4%.</div>
+          <div class="log-entry log-ok"><span class="log-t">10:48:22</span> Atmospheric test: Methane 0.32% LEL, CO 12
+            ppm. All safe.</div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER STATUS BAR -->
+  <footer class="cmd-footer">
+    <div class="footer-left">
+      <span>RESCUE CONSOLE VERSION 3.2.4</span>
+      <span class="f-divider">|</span>
+      <span>FAILSAFE ARCHITECTURE: ONLINE</span>
+      <span class="f-divider">|</span>
+      <span>OPERATOR: SENIOR DISPATCHER</span>
+    </div>
+    <div class="footer-right">
+      <span>Auto-refresh: <strong class="green-text">Active (1.5s)</strong></span>
+      <span class="f-divider">|</span>
+      <span>Emergency Hotline: <strong>EXT 991</strong></span>
+    </div>
+  </footer>
 
   <script src="app.js"></script>
 </body>
+
 </html>
