@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Monochrome industrial CRT mine safety control console for senior operator.">
+  <title>MINE SAFETY CONTROL CENTER</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="main-title">MINE SAFETY CONTROL CENTER</div>
+
+  <div class="dashboard-outer">
+    <!-- HIGH ALERTS box -->
+    <div class="high-alerts-box">
+      <div class="box-title">HIGH ALERTS</div>
+      <div class="box-content" id="highAlertsContent">ALERT: Thermal Alert [NO]</div>
+    </div>
+
+    <!-- Main bottom grid -->
+    <div class="bottom-grid">
+
+      <!-- Column 1: REAL TIME DATA (14 Sensors) -->
+      <div class="panel-box real-time-box">
+        <div class="box-title">REAL TIME DATA</div>
+        <div class="data-table" id="sensorDataTable">
+          <!-- 14 Sensors will update dynamically here -->
+          <div class="table-row"><span class="label">Ultrasonic:</span><span class="value" id="val-ultrasonic">-- cm</span></div>
+          <div class="table-row"><span class="label">Barometer:</span><span class="value" id="val-barometer">-- hPa</span></div>
+          <div class="table-row"><span class="label">AQI Score:</span><span class="value" id="val-aqi">--</span></div>
+          <div class="table-row"><span class="label">IR Thermal:</span><span class="value" id="val-ir">-- °C</span></div>
+          <div class="table-row"><span class="label">CH4 Methane:</span><span class="value" id="val-ch4">-- %</span></div>
+          <div class="table-row"><span class="label">CO Carbon:</span><span class="value" id="val-co">-- ppm</span></div>
+          <div class="table-row"><span class="label">Temperature:</span><span class="value" id="val-temperature">-- °C</span></div>
+          <div class="table-row"><span class="label">Humidity:</span><span class="value" id="val-humidity">-- %</span></div>
+          <div class="table-row"><span class="label">GPS Lat:</span><span class="value" id="val-gps-lat">--</span></div>
+          <div class="table-row"><span class="label">GPS Lng:</span><span class="value" id="val-gps-lng">--</span></div>
+          <div class="table-row"><span class="label">GPS Depth:</span><span class="value" id="val-gps-depth">-- m</span></div>
+          <div class="table-row"><span class="label">Motion:</span><span class="value" id="val-motion">--</span></div>
+          <div class="table-row"><span class="label">Proximity:</span><span class="value" id="val-proximity">-- cm</span></div>
+          <div class="table-row"><span class="label">Vibration:</span><span class="value" id="val-vibration">-- mm/s</span></div>
+          <div class="table-row"><span class="label">Pitch / Roll:</span><span class="value" id="val-accel-tilt">--</span></div>
+          <div class="table-row"><span class="label">G-Force:</span><span class="value" id="val-accel-g">-- g</span></div>
+          <div class="table-row"><span class="label">Beacon RSSI:</span><span class="value" id="val-beacon">-- dBm</span></div>
+          <hr class="separator-line">
+          <div class="table-row-footer" id="locationFooter">Location: Tunnel B3</div>
+        </div>
+      </div>
+
+      <!-- Column 2: Center Box (Camera Visual & Rover Controls) -->
+      <div class="center-column">
+        <!-- CAMERA VISUAL box -->
+        <div class="panel-box camera-visual-box">
+          <div class="box-title">CAMERA VISUAL</div>
+          <div class="camera-content">
+            <canvas id="cameraCanvas" style="width: 100%; height: 100%; display: block; background: #000;"></canvas>
+            <div class="camera-hud-overlay">
+              <div class="camera-feed-label">[ LIVE CAMERA FEED ]</div>
+              <div class="camera-feed-label">[ THERMAL CAMERA ]</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROVER CONTROLS section -->
+        <div class="controls-section">
+          <div class="section-title">ROVER CONTROLS</div>
+          
+          <!-- Monospace sliders & operational toggles -->
+          <div class="op-controls-row">
+            <button class="op-btn" id="btnCallback">[ CALLBACK ]</button>
+            <button class="op-btn" id="btnLights">[ LIGHTS: OFF ]</button>
+            <button class="op-btn" id="btnAlarm">[ ALARM: OFF ]</button>
+            <button class="op-btn" id="btnMode">[ MODE: MANUAL ]</button>
+          </div>
+
+          <div class="speed-slider-row">
+            <span class="speed-readout">SPEED: <span id="speedValue">0.0</span> km/h</span>
+            <input type="range" class="mono-slider" id="speedSlider" min="0" max="3.5" step="0.1" value="0">
+            <button class="op-btn estop" id="btnEstop">[ E-STOP ]</button>
+          </div>
+
+          <!-- Direction layout -->
+          <div class="controls-layout">
+            <button class="control-btn circle fwd" id="btnFwd">FWD</button>
+            <button class="control-btn circle stp" id="btnStp">STP</button>
+            <button class="control-btn oval rev" id="btnRev">REV</button>
+            <button class="control-btn circle lft" id="btnLft">LFT</button>
+            <button class="control-btn circle rgt" id="btnRgt">RGT</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 3: Right Column (Alerts & Warnings, Alert History) -->
+      <div class="right-column">
+        <!-- ALERTS AND WARNINGS box -->
+        <div class="panel-box alerts-warnings-box">
+          <div class="box-title">ALERTS AND WARNINGS</div>
+          <div class="alerts-content" id="alertsWarningsContent">
+            <!-- Active warnings list -->
+            <div id="alertHuman">ALERT: Human Detected [NO]</div>
+            <div id="warnObstacle">WARNING: Obstacle CLEAR</div>
+            <div id="infoTemp">INFO: Temp Normal</div>
+          </div>
+        </div>
+
+        <!-- ALERTS HISTORY box -->
+        <div class="panel-box alerts-history-box">
+          <div class="box-title">ALERTS HISTORY</div>
+          <div class="history-log" id="historyLog">
+            <div class="log-entry">10:48 - Console Init ACTIVE</div>
+          </div>
+          <div class="history-footer">✦</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
